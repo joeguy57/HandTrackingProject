@@ -1,3 +1,6 @@
+"""
+Add Docstring
+"""
 import os
 import time
 
@@ -33,13 +36,6 @@ while True:
     img = detector.findHands(img)
     lmList = detector.findPosition(img, draw=False)
     engine = pyttsx3.init()
-
-    # imageRun = threading.Thread(target=findNumbersUp(lmList))
-    # imageRun.start()
-    # # soundRun = threading.Thread(target=loadSound())
-    # # soundRun.start()
-    # # soundRun.join()
-    # imageRun.join
     if len(lmList) != 0:
         if lmList[4][1] < lmList[20][1]:
             sided = "left"
