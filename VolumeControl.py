@@ -5,17 +5,18 @@ identifying fingers that are placed up, to see manipulate devices volume:
     - going up increases volume by two
     - going down decreases volume by two
 2 fingers:
-    - sets the volume (must be held until fingers are off screen)
+    - sets the volume (must be held until fingers are off-screen)
 5 fingers:
     - Increases to full volume must be held until volume reaches 100%
 0 fingers:
     - Mutes device
 """
-import os
 import time
-import pyautogui
+
 import cv2
+import pyautogui
 import pyttsx3
+
 import HandTrackingModule as hTm
 
 wCam, hCam = 740, 580
