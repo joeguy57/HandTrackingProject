@@ -1,5 +1,6 @@
 """
-Add Docstring
+This file initiates our module and begins the process of
+identifying fingers that are placed up, to see  which fingers the user placed up.
 """
 import os
 import time
@@ -31,6 +32,7 @@ pTime = 0
 detector = hTm.HandDetector(detectionCon=0.75)
 tipIds = [4, 8, 12, 16, 20]
 previousNumber = None
+totalFingers = None
 while True:
     success, img = cap.read()
     img = detector.findHands(img)
@@ -78,11 +80,6 @@ while True:
         cv2.rectangle(img, (20, 225), (170, 425), (0, 255, 0), cv2.FILLED)
         cv2.putText(img, str(totalFingers), (45, 375), cv2.FONT_HERSHEY_PLAIN,
                     10, (255, 0, 0), 25)
-        if totalFingers != previousNumber:
-            engine.say(str(totalFingers))
-            engine.runAndWait()
-            del engine
-            previousNumber = totalFingers
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
@@ -91,3 +88,8 @@ while True:
                 3, (255, 0, 0), 3)
     cv2.imshow("Image", img)
     cv2.waitKey(1)
+    if totalFingers != previousNumber:
+        engine.say(str(totalFingers))
+        engine.runAndWait()
+        del engine
+        previousNumber = totalFingers

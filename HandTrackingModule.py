@@ -1,5 +1,5 @@
 """
-Add Docstring
+This a module that uses the images being sent through to identify the number being shown above.
 """
 import cv2
 import mediapipe as mp
