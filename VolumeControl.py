@@ -12,7 +12,9 @@ identifying fingers that are placed up, to see manipulate devices volume:
     - Mutes device
 """
 import time
-
+from ctypes import cast, POINTER
+from comtypes import CLSCTX_ALL
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 import cv2
 import pyautogui
 import pyttsx3
@@ -20,7 +22,7 @@ import pyttsx3
 import HandTrackingModule as hTm
 
 wCam, hCam = 740, 580
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 cap.set(3, wCam)
 cap.set(4, hCam)
 pTime = 0
@@ -85,6 +87,13 @@ while True:
                     pyautogui.press('volumemute')
             elif totalFingers == 5:
                 print("volume is full")
+                maxVolume = 0.0
+                devices = AudioUtilities.GetSpeakers()
+                interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+                volume = cast(interface, POINTER(IAudioEndpointVolume))
+                currentVolume = volume.GetMasterVolumeLevel()
+                volume.SetMasterVolumeLevel(maxVolume, None)
+                volumeSet = True
                 pyautogui.keyDown("volumeup")
         previous_index_position = lmList[8][2]
         totalFingers = fingers.count(1)
